@@ -23,13 +23,12 @@ var movies = [
         id: 4,
         title: 'Wojownicze Żółwie ninja',
         desc: 'Film o bohaterskich żółwiach',
-        img: 'turtles.jpg'
+        img: 'https://ssl-gfx.filmweb.pl/po/66/87/646687/7630291.3.jpg'
     }
 ];
 
 var Movie = React.createClass({
     propTypes: {
-        key: React.PropTypes.number.isRequired,
         title: React.PropTypes.string.isRequired,
         desc: React.PropTypes.string.isRequired,
         img: React.PropTypes.string.isRequired
@@ -37,10 +36,10 @@ var Movie = React.createClass({
 
     render: function() {
         return (
-            React.createElement('li', { key: this.props.movie.id },
-                React.createElement(MovieTitle, {}, this.props.movie.title),
-                React.createElement(MovieDesc, {}, this.props.movie.desc),
-                React.createElement(MovieImg, { src: this.props.movie.img })
+            React.createElement('li', {}, 
+                React.createElement(MovieTitle, {}, this.props.title),
+                React.createElement(MovieDesc, {}, this.props.desc),
+                React.createElement(MovieImg, { src: this.props.img })
             )
         )
     }
@@ -52,7 +51,9 @@ var MovieTitle = React.createClass({
     },
 
     render: function() {
-        React.createElement('h2', {}, this.props.movie.title)
+        return (
+            React.createElement('h2', {}, this.props.movie.title)
+        )
     }
 });
 
@@ -62,7 +63,9 @@ var MovieDesc = React.createClass({
     },
 
     render: function() {
-        React.createElement('p', {}, this.props.movie.desc)
+        return (
+            React.createElement('p', {}, this.props.movie.desc)
+        )
     }
 });
 
@@ -72,23 +75,36 @@ var MovieImg = React.createClass({
     },
 
     render: function() {
-        React.createElement('img', { src: this.props.movie.img })
+        return (
+            React.createElement('img', { src: this.props.movie.img })
+        )
     }
 });
 
-var MovieList = React.createClass({
+var MoviesList = React.createClass({
     propTypes: {
         movies: React.PropTypes.array.isRequired
     },
 
     render: function() {
-        
-    }
+        var moviesElements = movies.map(function (movie) {
+            return React.createElement('li', { key: movie.id },
+                React.createElement('h2', {}, movie.title),
+                React.createElement('p', {}, movie.desc),
+                React.createElement('img', { src: movie.img })
+            );
+        });
+        return (
+            React.createElement('div', {},
+                React.createElement('h1', {}, 'Lista filmów'),
+                React.createElement('ul', {}, moviesElements)
+            )
+        )
+    }  
 });
 
 
 
-var element =
-    React.createElement(Movie, {key: movie_id, });
+var element = React.createElement(MoviesList, {movies: movies});
 
 ReactDOM.render(element, document.getElementById('app'));
