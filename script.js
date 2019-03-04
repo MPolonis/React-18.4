@@ -52,7 +52,7 @@ var MovieTitle = React.createClass({
 
     render: function() {
         return (
-            React.createElement('h2', {}, this.props.movie.title)
+            React.createElement('h2', {}, this.props.title)
         )
     }
 });
@@ -64,7 +64,7 @@ var MovieDesc = React.createClass({
 
     render: function() {
         return (
-            React.createElement('p', {}, this.props.movie.desc)
+            React.createElement('p', {}, this.props.desc)
         )
     }
 });
@@ -76,7 +76,7 @@ var MovieImg = React.createClass({
 
     render: function() {
         return (
-            React.createElement('img', { src: this.props.movie.img })
+            React.createElement('img', { src: this.props.img })
         )
     }
 });
@@ -88,10 +88,10 @@ var MoviesList = React.createClass({
 
     render: function() {
         var moviesElements = movies.map(function (movie) {
-            return React.createElement('li', { key: movie.id },
-                React.createElement('h2', {}, movie.title),
-                React.createElement('p', {}, movie.desc),
-                React.createElement('img', { src: movie.img })
+            return React.createElement(Movie, { key: movie.id, title: movie.title, desc: movie.desc, img: movie.img },
+                // React.createElement('h2', {}, movie.title),
+                // React.createElement('p', {}, movie.desc),
+                // React.createElement('img', { src: movie.img })
             );
         });
         return (
